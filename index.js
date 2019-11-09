@@ -44,13 +44,23 @@ const validateID = (req, res, next) => {
     ? (helperCall = aDB)
     : null;
 
-  helperCall.get(id).then(result =>
+  helperCall.get(id).then(result => {
     !result
       ? res.status(400).json({
-          message: `There is no ${type} associated with the supplied ID.`
+          error: `There is no ${type} associated with the supplied ID.`
         })
-      : next()
-  );
+      : (req.identifier = id);
+    next();
+  });
+};
+
+const validateProject = (req, res, next) => {
+  const newProj = req.body;
+  !req.body.name || !req.body.description
+    ? res
+        .status(400)
+        .json({ error: "Project must have a name and description." })
+    : next();
 };
 
 server.use(express.json());
@@ -63,18 +73,56 @@ server.get("/projects", (req, res) => {
     .catch(err =>
       res
         .status(400)
-        .json({ message: "Sorry, cannot retrieve projects at this time." })
+        .json({ error: "Sorry, cannot retrieve projects at this time." })
     );
 });
 
 server.get("/projects/:id", validateID, (req, res) => {
-  const { id } = req.params;
   pDB
-    .get(id)
+    .get(req.identifier)
     .then(project => res.status(200).json({ project: project }))
     .catch(err =>
       res.status(500).json({
-        message: `There was a problem getting this project. Please try again.`
+        error: `There was a problem getting this project. Please try again.`
       })
+    );
+});
+
+server.post("/projects", validateProject, (req, res) => {
+  pDB
+    .insert({
+      name: req.body.name,
+      description: req.body.description,
+      completed: false
+    })
+    .then(project => res.status(201).json({ project: project }))
+    .catch(err =>
+      res
+        .status(500)
+        .json({ error: "Could not create new proect. Please try again." })
+    );
+});
+
+server.put("/projects/:id", validateID, (req, res) => {
+  pDB
+    .update(req.identifier, req.body)
+    .then(project => res.status(200).json({ project: project }))
+    .catch(err =>
+      res
+        .status(500)
+        .json({ error: "Could not update the project. Please try again." })
+    );
+});
+
+server.delete("/projects/:id", validateID, (req, res) => {
+  pDB
+    .remove(req.identifier)
+    .then(project => res.status(204).end())
+    .catch(err =>
+      res
+        .status(500)
+        .json({
+          error: "Could not delete the requested project. Please try again."
+        })
     );
 });
