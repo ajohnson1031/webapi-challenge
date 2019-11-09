@@ -12,3 +12,69 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
+
+const express = require("express");
+const cors = require("cors");
+const server = express();
+const pDB = require("./data/helpers/projectModel");
+const aDB = require("./data/helpers/actionModel");
+
+server.listen(4000, () => {
+  console.log("===== Listening on port 4000 =====");
+});
+
+const logger = (req, res, next) => {
+  console.log(
+    `${req.method.toUpperCase()} REQUEST at ${new Date().toISOString()} from ${
+      req.url
+    }`
+  );
+
+  next();
+};
+
+const validateID = (req, res, next) => {
+  const { id } = req.params;
+  const type = req.url.includes("projects") ? "project" : "action";
+  let helperCall;
+
+  type === "project"
+    ? (helperCall = pDB)
+    : type === "action"
+    ? (helperCall = aDB)
+    : null;
+
+  helperCall.get(id).then(result =>
+    !result
+      ? res.status(400).json({
+          message: `There is no ${type} associated with the supplied ID.`
+        })
+      : next()
+  );
+};
+
+server.use(express.json());
+server.use(cors());
+
+server.get("/projects", (req, res) => {
+  pDB
+    .get()
+    .then(projects => res.status(200).json({ projects: projects }))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: "Sorry, cannot retrieve projects at this time." })
+    );
+});
+
+server.get("/projects/:id", validateID, (req, res) => {
+  const { id } = req.params;
+  pDB
+    .get(id)
+    .then(project => res.status(200).json({ project: project }))
+    .catch(err =>
+      res.status(500).json({
+        message: `There was a problem getting this project. Please try again.`
+      })
+    );
+});
