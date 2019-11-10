@@ -8,7 +8,7 @@ const ActionList = props => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/project-actions/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/project-actions/${id}`)
       .then(res => setActions(res.data.actions))
       .catch(err => console.error(err));
   }, [id]);

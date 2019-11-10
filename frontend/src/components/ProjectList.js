@@ -6,7 +6,7 @@ const ProjectList = props => {
   const [projects, setProjects] = useState(null);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/projects")
+      .get(`${process.env.REACT_APP_API_URL}/projects`)
       .then(res => setProjects(res.data.projects))
       .catch(err => console.error({ error: err }));
   }, [setProjects]);
