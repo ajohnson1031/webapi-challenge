@@ -26,13 +26,22 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+      We learned about _server-side routing_ and _middleware_.
+
 - [ ] Describe Middleware?
+        
+       Middleware are functions that sit between a primary function call request and its invocation. Middleware helps us to intercept a function call and do things to the passed information before we finally execute the desired code.
 
 - [ ] Describe a Resource?
 
+      Everything is a resource. Resources can be accessed through preconfigured, unique URIs.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+      Aside from logs to the console, the API can return status codes that are industry standardized to be instantly readable to developers.
+
 - [ ] How can we partition our application into sub-applications?
+      You can call Express' use method on different endpoints, creating a sub-app and abstracting desired endpoints into their own instance while keeping everything in the main express app.
 
 ## Project Setup
 

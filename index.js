@@ -13,15 +13,20 @@ I need this code, just don't know where, perhaps should make some middleware, do
 Go code!
 */
 
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const server = express();
 const pDB = require("./data/helpers/projectModel");
 const aDB = require("./data/helpers/actionModel");
+const port = process.env.PORT;
 
-server.listen(4000, () => {
-  console.log("===== Listening on port 4000 =====");
+server.listen(port, () => {
+  console.log(`===== Listening on port ${port} =====`);
 });
+
+server.use(express.json());
+server.use(cors());
 
 const logger = (req, res, next) => {
   console.log(
@@ -93,9 +98,6 @@ const validateAction = (req, res, next) => {
 };
 
 // END MIDDLEWARE //
-
-server.use(express.json());
-server.use(cors());
 
 // START PROJECT ENDPOINTS //
 
@@ -228,11 +230,9 @@ server.delete("/actions/:id", logger, validateID, (req, res) => {
     .remove(req.identifier)
     .then(action => res.status(204).end())
     .catch(err =>
-      res
-        .status(500)
-        .json({
-          error: "Could not delete the requested action. Please try again."
-        })
+      res.status(500).json({
+        error: "Could not delete the requested action. Please try again."
+      })
     );
 });
 
