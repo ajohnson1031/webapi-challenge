@@ -19,7 +19,7 @@ const cors = require("cors");
 const server = express();
 const pDB = require("./data/helpers/projectModel");
 const aDB = require("./data/helpers/actionModel");
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
   console.log(`===== Listening on port ${port} =====`);
