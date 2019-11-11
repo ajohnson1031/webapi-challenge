@@ -1,0 +1,85 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  h1 {
+    margin-bottom: 30px;
+  }
+
+  .pcard-container,
+  .aCard-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ui.card {
+      margin: 0 10px;
+      padding: 20px 20px 0;
+
+      div.meta {
+        margin-bottom: 12px;
+      }
+
+      div.content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+          padding: 12px;
+          border: none;
+          border-radius: 4px;
+          font-weight: bold;
+          color: white;
+          height: auto;
+          outline: none;
+          cursor: pointer;
+        }
+
+        .actions-button {
+          background-color: dodgerblue;
+
+          &:hover {
+            background-color: lighten(dodgerblue, 10%);
+          }
+        }
+
+        .complete-button {
+          background-color: forestgreen;
+
+          &:hover {
+            background-color: lighten(forestgreen, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .no-actions {
+    border: 2px solid maroon;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: lighten(pink, 10%);
+
+    h3 {
+      color: maroon;
+    }
+  }
+
+  a.home-link {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: darkblue;
+    background-color: lighten(lightblue, 10%);
+
+    &:hover {
+      color: lighten(lightblue, 10%);
+      background-color: darkblue;
+    }
+  }
+}

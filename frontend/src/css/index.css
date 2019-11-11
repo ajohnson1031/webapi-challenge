@@ -1,0 +1,79 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+.App h1 {
+  margin-bottom: 30px;
+}
+.App .pcard-container,
+.App .aCard-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.App .pcard-container .ui.card,
+.App .aCard-container .ui.card {
+  margin: 0 10px;
+  padding: 20px 20px 0;
+}
+.App .pcard-container .ui.card div.meta,
+.App .aCard-container .ui.card div.meta {
+  margin-bottom: 12px;
+}
+.App .pcard-container .ui.card div.content,
+.App .aCard-container .ui.card div.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.App .pcard-container .ui.card div.content button,
+.App .aCard-container .ui.card div.content button {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+  height: auto;
+  outline: none;
+  cursor: pointer;
+}
+.App .pcard-container .ui.card div.content .actions-button,
+.App .aCard-container .ui.card div.content .actions-button {
+  background-color: dodgerblue;
+}
+.App .pcard-container .ui.card div.content .actions-button:hover,
+.App .aCard-container .ui.card div.content .actions-button:hover {
+  background-color: #51a9ff;
+}
+.App .pcard-container .ui.card div.content .complete-button,
+.App .aCard-container .ui.card div.content .complete-button {
+  background-color: forestgreen;
+}
+.App .pcard-container .ui.card div.content .complete-button:hover,
+.App .aCard-container .ui.card div.content .complete-button:hover {
+  background-color: #2cb42c;
+}
+.App .no-actions {
+  border: 2px solid maroon;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: #fff3f5;
+}
+.App .no-actions h3 {
+  color: maroon;
+}
+.App a.home-link {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  color: darkblue;
+  background-color: #d4ebf2;
+}
+.App a.home-link:hover {
+  color: #d4ebf2;
+  background-color: darkblue;
+}
